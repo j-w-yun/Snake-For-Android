@@ -78,6 +78,7 @@ public class MainActivity extends Activity{
                 drawControls();
                 Thread.sleep(100);
                 clearGrid();
+//                drawGrid();
             }
             catch(Exception e) {}
 
@@ -93,6 +94,13 @@ public class MainActivity extends Activity{
 
             drawControls();
         }
+
+//        public void updateFood()
+//        {
+//            drawDot(food[0], food[1], Color.GREEN);
+//            invalidate();
+//        }
+
 
         public void setWindow(int width, int height)
         {
@@ -116,6 +124,8 @@ public class MainActivity extends Activity{
             food = new int[2];
 
             (new Thread(new GameLoop(gs, queue, food, dp))).start();
+
+//            drawGrid();
         }
 
         @Override
@@ -131,33 +141,32 @@ public class MainActivity extends Activity{
             float x = event.getX();
             float y = event.getY();
 
-//            clearGrid();
-
             if(event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE)
             {
-                if(x >= 3 * div && x <= 4 * div && y >= 8 * div && y <= 9 * div)
+                if(x >= 4 * div && x <= 5 * div && y >= 8 * div && y <= 9 * div)
                 {
                     // UP
                     gs.turnUp();
                 }
-                else if(x >= 3 * div && x <= 4 * div && y >= 10 * div && y <= 11 * div)
+                else if(x >= 4 * div && x <= 5 * div && y >= 10 * div && y <= 11 * div)
                 {
                     // DOWN
                     gs.turnDown();
                 }
-                else if(x >= 2 * div && x <= 3 * div && y >= 9 * div && y <= 10 * div)
+                else if(x >= 3 * div && x <= 4 * div && y >= 9 * div && y <= 10 * div)
                 {
                     // LEFT
                     gs.turnLeft();
                 }
-                else if(x >= 4 * div && x <= 5 * div && y >= 9 * div && y <= 10 * div)
+                else if(x >= 5 * div && x <= 6 * div && y >= 9 * div && y <= 10 * div)
                 {
                     // RIGHT
                     gs.turnRight();
                 }
 
-//                update();
+//                updateFood();
             }
+
             return true;
         }
 
@@ -177,28 +186,41 @@ public class MainActivity extends Activity{
 
         public void drawControls()
         {
-            bitmapPaint.setColor(Color.WHITE);
+            bitmapPaint.setColor(Color.GREEN);
             bitmapPaint.setStyle(Paint.Style.STROKE);
+            bitmapPaint.setTextSize(30);
 
-            int gridx = (3 * div) + 1;
+            int gridx = (4 * div) + 1;
             int gridy = (8 * div) + 1;
             Rect r = new Rect(gridx, gridy, gridx + div - 2, gridy + div - 1);
             canvas.drawRect(r, bitmapPaint);
+            r = new Rect(gridx + 1, gridy + 1, gridx + div - 1, gridy + div);
+            canvas.drawRect(r, bitmapPaint);
+            canvas.drawText("UP", 4 * div + 1, 8 * div + 1, bitmapPaint);
 
-            gridx = (3 * div) + 1;
+            gridx = (4 * div) + 1;
             gridy = (10 * div) + 1;
             r = new Rect(gridx, gridy, gridx + div - 2, gridy + div - 1);
             canvas.drawRect(r, bitmapPaint);
+            r = new Rect(gridx + 1, gridy + 1, gridx + div - 1, gridy + div);
+            canvas.drawRect(r, bitmapPaint);
+            canvas.drawText("DOWN", 4 * div + 1, 10 * div + 1, bitmapPaint);
 
-            gridx = (2 * div) + 1;
+            gridx = (3 * div) + 1;
             gridy = (9 * div) + 1;
             r = new Rect(gridx, gridy, gridx + div - 2, gridy + div - 1);
             canvas.drawRect(r, bitmapPaint);
+            r = new Rect(gridx + 1, gridy + 1, gridx + div - 1, gridy + div);
+            canvas.drawRect(r, bitmapPaint);
+            canvas.drawText("LEFT", 3 * div + 1, 9 * div + 1, bitmapPaint);
 
-            gridx = (4 * div) + 1;
+            gridx = (5 * div) + 1;
             gridy = (9 * div) + 1;
             r = new Rect(gridx, gridy, gridx + div - 2, gridy + div - 1);
             canvas.drawRect(r, bitmapPaint);
+            r = new Rect(gridx + 1, gridy + 1, gridx + div - 1, gridy + div);
+            canvas.drawRect(r, bitmapPaint);
+            canvas.drawText("RIGHT", 5 * div + 1, 9 * div + 1, bitmapPaint);
 
             postInvalidate();
         }
